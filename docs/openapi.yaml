@@ -1,0 +1,90 @@
+---
+openapi: "3.0.1"
+info:
+  title: "template"
+  description: "https://github.com/bjcontreras"
+  termsOfService: "https://github.com/bjcontreras"
+  contact:
+    name: "Breiner Javier Contreras Romero"
+    url: "https://github.com/bjcontreras"
+  license:
+    name: "MIT License"
+    url: "https://github.com/bjcontreras"
+  version: "1.0"
+servers:
+- url: "http://localhost:8080"
+  description: "https://github.com/bjcontreras"
+paths:
+  /jav-bre/template/user/create:
+    post:
+      tags:
+      - "app-controller"
+      description: "Permite crear un nuevo usuario"
+      operationId: "create"
+      parameters:
+      - name: "msgtype"
+        in: "header"
+        description: "Tipo de mensaje"
+        required: false
+        schema:
+          type: "string"
+        example: "Request"
+      - name: "timestamp"
+        in: "header"
+        description: "Marca de tiempo de la solicitud"
+        required: false
+        schema:
+          type: "string"
+        example: "2025-10-07T15:48:13.61-05:00"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UserCreateRequest:
+      required:
+      - "email"
+      - "identificationDocument"
+      - "identificationType"
+      - "name"
+      - "telephoneNumber"
+      type: "object"
+      properties:
+        identificationType:
+          maxLength: 3
+          minLength: 0
+          pattern: "^(CC|PS|CE)$"
+          type: "string"
+        identificationDocument:
+          maxLength: 10
+          minLength: 0
+          pattern: "\\d+"
+          type: "string"
+        name:
+          type: "string"
+        lastName:
+          type: "string"
+        telephoneNumber:
+          maxLength: 10
+          minLength: 0
+          pattern: "\\d+"
+          type: "string"
+        email:
+          type: "string"
+  securitySchemes:
+    Authorization:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"

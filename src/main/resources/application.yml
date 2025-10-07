@@ -1,0 +1,39 @@
+# ----------------------------------------------
+# APP General Configuration
+# ----------------------------------------------
+spring:
+  application:
+    name: @project.name@
+  protocol: 'http'
+  profiles:
+    active: local
+info:
+  project-version: @project.version@
+  build-timestamp: ${maven.build.timestamp}
+controller:
+  properties:
+    base-path: /jav-bre/@project.name@
+
+# ----------------------------------------------
+# OPENAPI for documentation
+# ----------------------------------------------
+springdoc:
+  swagger-ui:
+    use-root-path: true
+  properties:
+    developer-name: 'Breiner Javier Contreras Romero'
+    organization-url: ${project.url}
+    project-licence-link: ${project.url}
+    project-licence-msg: ${project.url}
+    project-name: @project.name@
+    project-short-description: ${project.url}
+    project-tos-link: ${project.url}
+    project-tos-msg: ${project.url}
+  openapi:
+    dev-url: ${spring.protocol}://${springdoc.server.address}:${springdoc.server.port}
+
+
+project:
+  url: https://github.com/bjcontreras
+
+
